@@ -48,3 +48,13 @@ class TestMaze:
         assert False == maze.is_valid(0, -1)
         assert False == maze.is_valid(3, 0)
         assert False == maze.is_valid(0, 3)
+
+    def test_from_file(self):
+        """
+        Partition:
+            file path: valid or invalid
+        :return:
+        """
+        maze = Maze.from_file('test_maze_1.txt')
+        print(maze)
+

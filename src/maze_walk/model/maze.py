@@ -1,3 +1,6 @@
+from pathlib import Path
+
+
 class Maze:
     def __init__(self, grid: list[str]):
         self._grid = grid
@@ -22,12 +25,14 @@ class Maze:
         return "\n".join(rows)
 
     @classmethod
-    def from_file(cls, file_path: str) -> "Maze":
+    def from_file(cls, file_name: str) -> "Maze":
+        """
+
+        :param file_name: load a file from ./src/static/file_name
+        :return:
+        """
+        file_path = Path(__file__).resolve().parents[3] / 'static' / file_name
         with open(file_path, "r") as f:
             lines = [line.strip() for line in f.readlines()]
 
             return cls(lines)
-
-
-
-

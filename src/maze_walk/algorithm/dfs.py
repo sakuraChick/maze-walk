@@ -1,7 +1,7 @@
 from src.maze_walk.model.maze import Maze
 
 
-def _dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur_path: list[tuple[int, int]]) -> list[list[tuple[int, int]]] | None:
+def dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur_path: list[tuple[int, int]]):
     """
     The core method of
     :param maze: a 2 * 2 array, reflecting the types (such as wall, air, exit) in each grid
@@ -12,40 +12,33 @@ def _dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur
     :return:
     """
     if not maze.is_valid(x, y):
-        return None
+        return
 
-    if (x, y) in cur_path: # going back (which means this is a dead end)
-        return None
+    if (x, y) in cur_path: # going back (which means this is a dead end or a loop)
+        return
 
     cur_path.append((x, y))
+    yield "enter", (x, y), cur_path.copy()
 
     if maze.is_exit(x, y):
         all_paths.append(cur_path.copy()) # this is a valid path!
+        yield 'found', (x, y), cur_path.copy()
+
         cur_path.pop() # going back for one step and search for other possible paths
-        return None
+        yield 'backtrack', (x, y), cur_path.copy()
+
+        return
 
     if maze.is_wall(x, y):
         cur_path.pop()
-        return None # a path through wall is not valid
+        yield 'backtrack', (x, y), cur_path.copy()
+        return # a path through wall is not valid
 
-    # iterate throw four directions and recursively return all possible paths
-    _dfs(maze, x, y+1, all_paths, cur_path)
-    _dfs(maze, x, y-1, all_paths, cur_path)
-    _dfs(maze, x+1, y, all_paths, cur_path)
-    _dfs(maze, x-1, y, all_paths, cur_path)
+    # iterate through four directions and recursively update all possible paths
+    dfs(maze, x, y + 1, all_paths, cur_path)
+    dfs(maze, x, y - 1, all_paths, cur_path)
+    dfs(maze, x + 1, y, all_paths, cur_path)
+    dfs(maze, x - 1, y, all_paths, cur_path)
 
-    cur_path.pop()
-
-    return None
-
-def dfs(maze: Maze, x_0: int, y_0: int) -> list[list[tuple[int, int]]] | None:
-    """
-    Helping method for initializing.
-    :param maze:
-    :param x_0:
-    :param y_0:
-    :return:
-    """
-    all_paths = []
-    _dfs(maze, x_0, y_0, all_paths, [])
-    return all_paths
+    cur_path.pop() # remove this point and go back one step
+    yield "backtrack", (x, y), cur_path.copy()
