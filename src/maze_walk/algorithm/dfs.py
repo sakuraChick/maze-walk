@@ -48,4 +48,5 @@ def dfs(maze: Maze, x_0: int, y_0: int) -> list[list[tuple[int, int]]] | None:
     """
     all_paths = []
     _dfs(maze, x_0, y_0, all_paths, [])
+    all_paths.sort(key=len)
     return all_paths
