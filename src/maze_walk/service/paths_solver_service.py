@@ -26,7 +26,7 @@ def process_output(all_paths: list[list[tuple[int, int]]]):
 
         output.append(f"Route {i+1}: {route}, length: {len(path)}\n")
 
-    return "".join(output)
+    return "".join(output) if output != [] else "No available routes!"
 
 def solve_maze_service(file_name: str):
     maze = process_maze(file_name)
@@ -34,7 +34,9 @@ def solve_maze_service(file_name: str):
     if maze.x_b is not None and maze.y_b is not None:
         all_paths = solve_from_given_beginning(maze)
     else:
-        x_b, y_b = eval(input("Please enter x, y coordinate of the beginning point (with a space): "))
+        x_b, y_b = eval(input("The selected coordinate is a wall, please enter x, y coordinate of the beginning point (with a comma): "))
+        while maze.is_wall(x_b, y_b):
+           x_b, y_b = eval(input("Please enter a valid coordinate: "))
         all_paths = solve_from_xy(maze, x_b, y_b)
 
     print(process_output(all_paths))

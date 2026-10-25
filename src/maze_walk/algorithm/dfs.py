@@ -49,4 +49,5 @@ def find_all_paths(maze, x, y):
 
     for _ in dfs(maze, x, y, all_paths, []):
         pass
+
     return all_paths

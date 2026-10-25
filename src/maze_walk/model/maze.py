@@ -38,10 +38,10 @@ class Maze:
     def from_file(cls, file_name: str) -> "Maze":
         """
 
-        :param file_name: load a file from ./src/static/file_name
+        :param file_name: load a file from ./src/assets/file_name
         :return:
         """
-        file_path = Path(__file__).resolve().parents[3] / 'static' / file_name
+        file_path = Path(__file__).resolve().parents[3] / 'assets' / file_name
         with open(file_path, "r") as f:
             lines = [line.strip() for line in f.readlines()]
 

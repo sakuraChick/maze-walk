@@ -1,4 +1,4 @@
-""" Please complete test_dfs.py, test_filter.py and test_maze.py before running this test
+""" Please complete test_dfs.py, and test_maze.py before running this test
 
 Partitions:
 
