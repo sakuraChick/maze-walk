@@ -3,10 +3,13 @@ from pathlib import Path
 
 class Maze:
     def __init__(self, grid: list[str]):
-        self._grid = grid
+        self._grid: list[str] = grid
 
         self.row = len(grid)
         self.col = len(grid[0])
+
+        self.x_b = None
+        self.y_b = None
 
     def is_wall(self, x: int, y: int) -> bool:
         return self.get_grid(x, y) == '#'
@@ -23,6 +26,13 @@ class Maze:
     def __repr__(self) -> str:
         rows = ["".join(row) for row in self._grid]
         return "\n".join(rows)
+
+    def find_beginning(self):
+        for j in range(self.row):
+            for i in range(self.col):
+                if self._grid[j][i] == 'b':
+                    self.y_b = j
+                    self.x_b = i
 
     @classmethod
     def from_file(cls, file_name: str) -> "Maze":

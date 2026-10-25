@@ -20,5 +20,3 @@ def test_dead_end_path():
 def test_loop_path():
     pass
 
-
-def

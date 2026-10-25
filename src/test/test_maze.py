@@ -49,6 +49,29 @@ class TestMaze:
         assert False == maze.is_valid(3, 0)
         assert False == maze.is_valid(0, 3)
 
+    def test_have_exit(self):
+        """
+        Partition: have beginning point, no beginning point.
+        """
+        maze_with_b = Maze([
+            '###',
+            '# b',
+            '###',
+        ])
+
+        maze_without_b = Maze([
+            '###',
+            '# #',
+            '###'
+        ])
+
+        maze_with_b.find_beginning()
+        maze_without_b.find_beginning()
+
+        assert (None, None) == (maze_without_b.x_b, maze_without_b.y_b)
+        assert (2, 1) == (maze_with_b.x_b, maze_with_b.y_b)
+
+
     def test_from_file(self):
         """
         Partition:

@@ -35,10 +35,18 @@ def dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur_
         return # a path through wall is not valid
 
     # iterate through four directions and recursively update all possible paths
-    dfs(maze, x, y + 1, all_paths, cur_path)
-    dfs(maze, x, y - 1, all_paths, cur_path)
-    dfs(maze, x + 1, y, all_paths, cur_path)
-    dfs(maze, x - 1, y, all_paths, cur_path)
+    yield from dfs(maze, x, y + 1, all_paths, cur_path)
+    yield from dfs(maze, x, y - 1, all_paths, cur_path)
+    yield from dfs(maze, x + 1, y, all_paths, cur_path)
+    yield from dfs(maze, x - 1, y, all_paths, cur_path)
 
-    cur_path.pop() # remove this point and go back one step
+    cur_path.pop() # remove this point and go back one step since all the directions have been explored
     yield "backtrack", (x, y), cur_path.copy()
+
+
+def find_all_paths(maze, x, y):
+    all_paths = []
+
+    for _ in dfs(maze, x, y, all_paths, []):
+        pass
+    return all_paths
