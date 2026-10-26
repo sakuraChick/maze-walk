@@ -50,16 +50,24 @@ e   #
 #####
 ```
 
-Put your maze under directory `./static`
+Put your maze under directory `./assets`
 
 ### Running
 
 Run the command below:
 
 ```bash
-uv venv exec python ./src/maze_walk/main.py
+uv run python ./src/maze_walk/main.py
 ```
 
 ## Core Logic
 
-## 
+### Depth First Search (DFS)
+
+
+
+### `matplotlib` Visualization
+
+
+
+## Project Structure
