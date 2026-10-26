@@ -1,4 +1,3 @@
-from maze_walk.model.maze import Maze
 from maze_walk.service.paths_solver_service import solve_maze_service
 
 
