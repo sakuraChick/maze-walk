@@ -8,11 +8,7 @@ def process_maze(file_name: str):
     maze.find_beginning()
     return maze
 
-def solve_from_given_beginning(maze: Maze):
-    all_paths = find_all_paths(maze, maze.x_b, maze.y_b)
-    return sort_routes(all_paths)
-
-def solve_from_xy(maze: Maze, x: int, y: int):
+def solve(maze: Maze, x: int, y: int):
     all_paths = find_all_paths(maze, x, y)
     return sort_routes(all_paths)
 
@@ -28,15 +24,22 @@ def process_output(all_paths: list[list[tuple[int, int]]]):
 
     return "".join(output) if output != [] else "No available routes!"
 
-def solve_maze_service(file_name: str):
+def solve_maze_service(file_name: str,
+                       beginning: tuple[int, int] | None = None
+                       ) -> str:
     maze = process_maze(file_name)
 
-    if maze.x_b is not None and maze.y_b is not None:
-        all_paths = solve_from_given_beginning(maze)
+    if beginning is None:
+        if maze.x_b is not None and maze.y_b is not None:
+            x_b, y_b = maze.x_b, maze.y_b
+        else:
+            raise ValueError("A starting point is required.")
     else:
-        x_b, y_b = eval(input("The selected coordinate is a wall, please enter x, y coordinate of the beginning point (with a comma): "))
-        while maze.is_wall(x_b, y_b):
-           x_b, y_b = eval(input("Please enter a valid coordinate: "))
-        all_paths = solve_from_xy(maze, x_b, y_b)
+        x_b, y_b = beginning
 
-    print(process_output(all_paths))
+    if maze.is_wall(x_b, y_b):
+        raise ValueError("The starting point is in the wall!")
+
+    all_paths = solve(maze, x_b, y_b)
+
+    return process_output(all_paths)
