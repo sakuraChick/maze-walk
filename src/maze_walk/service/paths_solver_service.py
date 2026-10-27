@@ -20,7 +20,7 @@ def process_output(all_paths: list[list[tuple[int, int]]]):
             route += f"{point} -> "
         route += "exit"
 
-        output.append(f"Route {i+1}: {route}, length: {len(path)}\n")
+        output.append(f"Route {i+1}: {route}, length: {len(path)-1}\n") # the starting point does not count
 
     return "".join(output) if output != [] else "No available routes!"
 

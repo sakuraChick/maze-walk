@@ -41,6 +41,8 @@ The maze should be with same number of characters in each row, where:
 - `s`: stands for the starting point
 - `e`: stands for the ending point
 
+> Legends can be changed in `./src/maze_walk/model/maze.py`.
+
 For example:
 
 ```text

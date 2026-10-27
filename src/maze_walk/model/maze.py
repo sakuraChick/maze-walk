@@ -23,16 +23,19 @@ class Maze:
     def get_grid(self, x: int, y: int) -> str:
         return self._grid[y][x]
 
-    def __repr__(self) -> str:
-        rows = ["".join(row) for row in self._grid]
-        return "\n".join(rows)
-
     def find_beginning(self):
         for j in range(self.row):
             for i in range(self.col):
                 if self._grid[j][i] == 'b':
                     self.y_b = j
                     self.x_b = i
+
+    def __repr__(self) -> str:
+        rows = ["".join(row) for row in self._grid]
+        return "\n".join(rows)
+
+    def __iter__(self):
+        return self._grid.__iter__()
 
     @classmethod
     def from_file(cls, file_name: str) -> "Maze":
