@@ -24,20 +24,20 @@ def dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur_
         return
 
     cur_path.append((x, y))
-    yield "enter", (x, y), cur_path.copy()
+    yield "entering", (x, y), cur_path.copy()
 
     if maze.is_exit(x, y):
         all_paths.append(cur_path.copy()) # this is a valid path!
         yield 'found', (x, y), cur_path.copy()
 
         cur_path.pop() # going back for one step and search for other possible paths
-        yield 'backtrack', (x, y), cur_path.copy()
+        yield 'backtracking', (x, y), cur_path.copy()
 
         return
 
     if maze.is_wall(x, y):
         cur_path.pop()
-        yield 'backtrack', (x, y), cur_path.copy()
+        yield 'backtracking', (x, y), cur_path.copy()
         return # a path through wall is not valid
 
     # iterate through four directions and recursively update all possible paths
@@ -45,14 +45,18 @@ def dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur_
         yield from dfs(maze, x + dx, y + dy, all_paths, cur_path, visited)
 
     cur_path.pop() # remove this point and go back one step since all the directions have been explored
-    yield "backtrack", (x, y), cur_path.copy()
+    yield "backtracking", (x, y), cur_path.copy()
 
 
 def find_one_path(maze, x, y):
-    all_paths = []
+    path = []
     visited = []
+    events = []
 
-    for _ in dfs(maze, x, y, all_paths, [], visited):
-        pass
+    for event in dfs(maze, x, y, path, [], visited):
+        events.append(event)
 
-    return all_paths
+        if event[0] == "found":
+            break
+
+    return path, events

@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import matplotlib.animation as animation
 
 WIDTH = 5
 

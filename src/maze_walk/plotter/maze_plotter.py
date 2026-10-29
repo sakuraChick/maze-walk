@@ -1,7 +1,5 @@
 from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
-import numpy as np
-import numpy.typing as npt
 
 from maze_walk.model.maze import Maze
 
@@ -16,7 +14,7 @@ class MazePlotter:
         )
         self._color_grid = maze.get_grid()
 
-    def draw(self):
+    def draw_static(self):
         fig, ax = plt.subplots()
         im = ax.imshow(self._color_grid,
                   cmap=self._colormap,

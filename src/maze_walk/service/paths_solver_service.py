@@ -11,8 +11,8 @@ def process_maze(file_name: str):
     return maze
 
 def solve(maze: Maze, x: int, y: int):
-    all_paths = find_one_path(maze, x, y)
-    return sort_routes(all_paths)
+    path = find_one_path(maze, x, y)
+    return sort_routes(path)[0]
 
 def process_output(all_paths: list[list[tuple[int, int]]]):
     output = []
