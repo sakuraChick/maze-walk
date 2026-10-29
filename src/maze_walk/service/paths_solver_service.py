@@ -1,15 +1,17 @@
-from maze_walk.algorithm.dfs import find_all_paths
+from maze_walk.algorithm.bfs import bfs
+from maze_walk.algorithm.dfs import find_one_path
+from maze_walk.factory import maze_factory
 from maze_walk.model.maze import Maze
 from maze_walk.utils import sort_routes
 
 
 def process_maze(file_name: str):
-    maze = Maze.from_file(file_name)
+    maze = maze_factory.from_file(file_name)
     maze.find_beginning()
     return maze
 
 def solve(maze: Maze, x: int, y: int):
-    all_paths = find_all_paths(maze, x, y)
+    all_paths = find_one_path(maze, x, y)
     return sort_routes(all_paths)
 
 def process_output(all_paths: list[list[tuple[int, int]]]):
@@ -24,14 +26,12 @@ def process_output(all_paths: list[list[tuple[int, int]]]):
 
     return "".join(output) if output != [] else "No available routes!"
 
-def solve_maze_service(file_name: str,
+def solve_maze_service(maze: Maze,
                        beginning: tuple[int, int] | None = None
                        ) -> str:
-    maze = process_maze(file_name)
-
     if beginning is None:
-        if maze.x_b is not None and maze.y_b is not None:
-            x_b, y_b = maze.x_b, maze.y_b
+        if maze.begin is not None:
+            x_b, y_b = maze.begin
         else:
             raise ValueError("A starting point is required.")
     else:

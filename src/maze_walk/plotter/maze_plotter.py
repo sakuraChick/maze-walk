@@ -7,14 +7,14 @@ from maze_walk.model.maze import Maze
 
 
 class MazePlotter:
-    def __init__(self, grid: npt.NDArray):
+    def __init__(self, maze: Maze):
         self._colormap = ListedColormap(
             ["white", # 0 for air
             "black", # 1 for wall
             "red", # 2 for exit
             "blue"] # 3 for starting point
         )
-        self._color_grid = grid
+        self._color_grid = maze.get_grid()
 
     def draw(self):
         fig, ax = plt.subplots()
@@ -22,24 +22,9 @@ class MazePlotter:
                   cmap=self._colormap,
                   interpolation="nearest")
 
+        im.set_clim(-0.5, 3.5)
+
         ax.set_xticks([])
         ax.set_yticks([])
 
         return fig, ax, im
-
-    @classmethod
-    def from_maze(cls, maze: Maze):
-        grid = np.zeros((maze.row, maze.col), dtype=np.int8)
-
-        dict_to_val = {
-            ' ': 0,
-            '#': 1,
-            'e': 2,
-            'b': 3
-        }
-
-        for i, row in enumerate(maze):
-            for j, char in enumerate(row):
-                grid[i][j] = dict_to_val[maze.get_grid(j, i)]
-
-        return cls(grid)

@@ -1,9 +1,10 @@
 from src.maze_walk.model.maze import Maze
 
 
-def dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur_path: list[tuple[int, int]]):
+def dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur_path: list[tuple[int, int]], visited: list[tuple[int, int]]):
     """
     The core method of
+    :param visited:
     :param maze: a 2 * 2 array, reflecting the types (such as wall, air, exit) in each grid
     :param x: x coordinate of current starting point
     :param y: y coordinate of current starting point
@@ -13,6 +14,11 @@ def dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur_
     """
     if not maze.is_valid(x, y):
         return
+
+    if (x, y) in visited:
+        return
+    else:
+        visited.append((x, y))
 
     if (x, y) in cur_path: # going back (which means this is a dead end or a loop)
         return
@@ -35,19 +41,18 @@ def dfs(maze: Maze, x: int, y: int, all_paths: list[list[tuple[int, int]]], cur_
         return # a path through wall is not valid
 
     # iterate through four directions and recursively update all possible paths
-    yield from dfs(maze, x, y + 1, all_paths, cur_path)
-    yield from dfs(maze, x, y - 1, all_paths, cur_path)
-    yield from dfs(maze, x + 1, y, all_paths, cur_path)
-    yield from dfs(maze, x - 1, y, all_paths, cur_path)
+    for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+        yield from dfs(maze, x + dx, y + dy, all_paths, cur_path, visited)
 
     cur_path.pop() # remove this point and go back one step since all the directions have been explored
     yield "backtrack", (x, y), cur_path.copy()
 
 
-def find_all_paths(maze, x, y):
+def find_one_path(maze, x, y):
     all_paths = []
+    visited = []
 
-    for _ in dfs(maze, x, y, all_paths, []):
+    for _ in dfs(maze, x, y, all_paths, [], visited):
         pass
 
     return all_paths
