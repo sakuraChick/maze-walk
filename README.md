@@ -82,16 +82,6 @@ Arguments:
 
 Use `-h` or `--help` to learn more information.
 
-## Core Logic
-
-### Depth First Search (DFS)
-
-
-
-### `matplotlib` Visualization
-
-
-
 ## Project Structure
 
 ```text
@@ -137,3 +127,12 @@ maze-walk
 
 ## Presentation outline
 
+## License
+
+MIT
+
+## Contributing
+
+Any pull requests are welcomed!
+
+For bugs and minor changes, please open an issue.
