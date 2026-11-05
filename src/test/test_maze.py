@@ -78,6 +78,6 @@ class TestMaze:
             file path: valid or invalid
         :return:
         """
-        maze = Maze.from_file('test_maze_1.txt')
+        maze = Maze.from_file('default_maze.txt')
         print(maze)
 

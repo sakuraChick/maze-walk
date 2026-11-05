@@ -1,48 +1,59 @@
+import numpy.typing as npt
 from pathlib import Path
 
 
 class Maze:
-    def __init__(self, grid: list[str]):
-        self._grid: list[str] = grid
+    def __init__(self, grid: npt.NDArray):
+        self._grid: npt.NDArray = grid
 
-        self.row = len(grid)
-        self.col = len(grid[0])
+        self.row = self._grid.shape[0]
+        self.col = self._grid.shape[1]
 
-        self.x_b = None
-        self.y_b = None
+        self.begin = (None, None)
 
     def is_wall(self, x: int, y: int) -> bool:
-        return self.get_grid(x, y) == '#'
+        return self.get_cell(x, y) == 1
 
     def is_exit(self, x: int, y: int) -> bool:
-        return self.get_grid(x, y) == 'e'
+        return self.get_cell(x, y) == 2
 
     def is_valid(self, x: int, y: int) -> bool:
         return (0 <= x < self.col) and (0 <= y < self.row)
 
-    def get_grid(self, x: int, y: int) -> str:
-        return self._grid[y][x]
+    def get_cell(self, x: int, y: int) -> str:
+        return self._grid[y, x]
 
-    def __repr__(self) -> str:
-        rows = ["".join(row) for row in self._grid]
-        return "\n".join(rows)
+    def get_grid(self) -> npt.NDArray:
+        return self._grid
+
+    def set_begin(self, x: int, y: int) -> None:
+        self.begin = (x, y)
+        self._grid[y, x] = 3
+
+    def set_exit(self, x: int, y: int) -> None:
+        self._grid[y, x] = 2
 
     def find_beginning(self):
         for j in range(self.row):
             for i in range(self.col):
-                if self._grid[j][i] == 'b':
-                    self.y_b = j
-                    self.x_b = i
+                if self._grid[j, i] == 3:
+                    self.begin = (i, j)
 
-    @classmethod
-    def from_file(cls, file_name: str) -> "Maze":
-        """
+    def save(self, file_name: str) -> None:
+        file_path = Path(__file__).resolve().parents[3] / "assets" / "grid" / file_name
+        with open(file_path, "w") as f:
+            f.write(self.__repr__())
 
-        :param file_name: load a file from ./src/assets/file_name
-        :return:
-        """
-        file_path = Path(__file__).resolve().parents[3] / 'assets' / file_name
-        with open(file_path, "r") as f:
-            lines = [line.strip() for line in f.readlines()]
+    def __repr__(self) -> str:
+        rows = []
+        for row in self._grid:
+            row_str = ""
+            for ch in row:
+                row_str += f"{ch} "
+            row_str += '\n'
+            rows.append(row_str)
 
-            return cls(lines)
+        return "".join(rows)
+
+    def __iter__(self):
+        return self._grid.__iter__()

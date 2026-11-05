@@ -95,15 +95,45 @@ Use `-h` or `--help` to learn more information.
 ## Project Structure
 
 ```text
-
+maze-walk
+├── README.md
+├── pyproject.toml // dependencies and configs
+├── src
+│   ├── maze_walk
+│   │   ├── __init__.py
+│   │   ├── algorithm
+│   │   │   ├── __init__.py
+│   │   │   ├── bfs.py
+│   │   │   ├── dfs.py
+│   │   │   └── dfs_speed_test.py
+│   │   ├── cli.py
+│   │   ├── command
+│   │   │   ├── __init__.py
+│   │   │   ├── search.py
+│   │   │   └── visualize.py
+│   │   ├── factory
+│   │   │   ├── __init__.py
+│   │   │   └── maze_factory.py // different methods to generate a maze provided
+│   │   ├── main.py
+│   │   ├── model
+│   │   │   ├── __init__.py
+│   │   │   └── maze.py
+│   │   ├── plotter
+│   │   │   ├── __init__.py
+│   │   │   ├── bfs_animator.py
+│   │   │   ├── dfs_animator.py
+│   │   │   └── maze_plotter.py // plot static maze
+│   │   └── service
+│   │       ├── __init__.py
+│   │       ├── solve_maze_service.py
+│   │       └── visualization_service.py
+│   └── test
+│       ├── test_comprehensive.py
+│       ├── test_dfs.py
+│       ├── test_factory.py
+│       └── test_maze.py
+└── uv.lock
 ```
 
-
-
-
-
-
-
-
-
+## Presentation outline
 
