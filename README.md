@@ -32,7 +32,7 @@ uv pip install -r pyproject.toml
 3. Run the example below
 
 ```bash
-maze visualize -a dfs -b 45 1 -f default_maze.txt
+maze visualize -a dfs -b 45 1 -f default_grid.txt
 ```
 
 ## Usage
