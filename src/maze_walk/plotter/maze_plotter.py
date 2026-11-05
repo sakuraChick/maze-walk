@@ -26,3 +26,4 @@ class MazePlotter:
         ax.set_yticks([])
 
         return fig, ax, im
+

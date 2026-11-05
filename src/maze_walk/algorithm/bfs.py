@@ -1,47 +1,75 @@
 from collections import deque
-from typing import Any
+from typing import Any, NamedTuple, Iterator
 
 from maze_walk.model.maze import Maze
 
+class BfsEvent(NamedTuple):
+    type: str
+    point: tuple[int, int]
+    parent: tuple[int, int] | None = None
+    dist: int | None = None
 
-def bfs(maze: Maze, x: int, y: int) -> dict[tuple[int, int], list[Any]]:
-    dirs = ((0, 1), (0, -1), (1, 0), (-1, 0))
 
+def _bfs(maze: Maze, x: int, y: int, parent: dict[tuple[int, int], tuple[int, int]]) -> Iterator[BfsEvent]:
     dist = {(x, y): 0}
-    parents = {(x, y): []}
-    q = deque([(x, y)])
-
+    visited = []
+    q = deque()
+    q.append((x, y))
 
     while q:
         x, y = q.popleft()
-        if maze.is_exit(x, y):
+        if (x, y) in visited:
             continue
-        for dx, dy in dirs:
+        else:
+            visited.append((x, y))
+
+        if maze.is_exit(x, y):
+            yield BfsEvent("found", (x, y), parent=parent[(x, y)], dist=dist[(x, y)])
+            continue
+
+        for dx, dy in ((0, 1), (0, -1), (1, 0), (-1, 0)):
             nx, ny = x + dx, y + dy
+
             if not maze.is_valid(nx, ny) or maze.is_wall(nx, ny):
+                continue
+            if (nx, ny) in parent:
                 continue
 
             if (nx, ny) not in dist: # a new point
                 dist[(nx, ny)] = dist[(x, y)] + 1
-                parents[(nx, ny)] = [(x, y)]
+                parent[(nx, ny)] = (x, y)
                 q.append((nx, ny))
-            elif dist[(nx, ny)] == dist[(x, y)] + 1: # the point is also a child of (x, y) but not counted at first
-                parents[(nx, ny)].append((x, y))
 
-    return parents
+            yield BfsEvent("discovered", (nx, ny), (x, y), dist[(nx, ny)])
 
-def all_shortest_path(parents: dict[tuple[int, int], list[Any]], e: tuple[int, int], x: int, y: int):
-    paths = []
+    yield BfsEvent("finished", (x, y))
 
-    def build(cell, suffix):
-        if cell == (x, y):
-            paths.append([cell] + suffix)
-            return
-        for p in parents[cell]:
-            build(p, [cell] + suffix)
 
-    build(e, [])
+def build(end: tuple[int, int], parent: dict[tuple[int, int], tuple[int, int]], path: list[tuple[int, int]]) -> Iterator[BfsEvent]:
+    dummy = end
+    while parent.get(dummy):
+        dummy = parent[dummy]
+        path.append(dummy)
+        yield BfsEvent("building", dummy)
 
-    return paths
+    path.reverse()
 
+
+def bfs(maze: Maze, x: int, y: int):
+    path = []
+    events = []
+    parent = {}
+    end = (-1, -1)
+
+    for event in _bfs(maze, x, y, parent):
+        events.append(event)
+
+        if event.type == "found":
+            end = event.point
+            break
+
+    for event in build(end, parent, path):
+        events.append(event)
+
+    return path, events
 

@@ -1,4 +1,5 @@
 import numpy.typing as npt
+from pathlib import Path
 
 
 class Maze:
@@ -38,9 +39,21 @@ class Maze:
                 if self._grid[j, i] == 3:
                     self.begin = (i, j)
 
+    def save(self, file_name: str) -> None:
+        file_path = Path(__file__).resolve().parents[3] / "assets" / "grid" / file_name
+        with open(file_path, "w") as f:
+            f.write(self.__repr__())
+
     def __repr__(self) -> str:
-        rows = ["".join(row) for row in self._grid]
-        return "\n".join(rows)
+        rows = []
+        for row in self._grid:
+            row_str = ""
+            for ch in row:
+                row_str += f"{ch} "
+            row_str += '\n'
+            rows.append(row_str)
+
+        return "".join(rows)
 
     def __iter__(self):
         return self._grid.__iter__()
