@@ -1,2 +1,0 @@
-[console_scripts]
-maze = maze_walk.main:main
