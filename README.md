@@ -170,20 +170,6 @@ maze-walk
 └── uv.lock
 ```
 
-## Presentation outline
-
-### Basic Workflow
-
-User input: command
-
-command -(parsed)-> arguments
-
-file -(`maze_factory`)-> maze (plus the starting point) -> services
-
-plot/animation service → dfs/bfs animator → animation
-
-solve maze → raw output → final output
-
 ## License
 
 MIT

@@ -3,9 +3,6 @@ from pathlib import Path
 
 
 class Maze:
-    """
-
-    """
     def __init__(self, grid: npt.NDArray):
         self._grid: npt.NDArray = grid
 
