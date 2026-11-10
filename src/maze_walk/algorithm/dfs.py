@@ -9,15 +9,6 @@ class DfsEvent(NamedTuple):
 
 
 def _dfs(maze: Maze, x: int, y: int, cur_path: list[tuple[int, int]], visited: list[tuple[int, int]]):
-    """
-    The core method of
-    :param visited:
-    :param maze: a 2 * 2 array, reflecting the types (such as wall, air, exit) in each grid
-    :param x: x coordinate of current starting point
-    :param y: y coordinate of current starting point
-    :param cur_path: current path (building)
-    :return:
-    """
     if not maze.is_valid(x, y):
         return
 
@@ -54,6 +45,13 @@ def _dfs(maze: Maze, x: int, y: int, cur_path: list[tuple[int, int]], visited: l
 
 
 def dfs(maze, x, y):
+    """
+    Receive a maze and the coordinate of a valid starting point, use DFS search to find out one path.
+    :param maze: the maze in grid form
+    :param x: x coordinate of the starting point
+    :param y: y coordinate of the starting point
+    :return: raw path in list, and all `DfsEvents` generated
+    """
     path = []
     visited = []
     events = []

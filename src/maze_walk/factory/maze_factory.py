@@ -17,7 +17,7 @@ def from_file(file_name: str) -> Maze:
     return Maze(grid)
 
 
-def from_bool(file_name: str, cols: int, e: tuple[int, int] | None = None) -> Maze:
+def convert_to_grid(file_name: str, cols: int, e: tuple[int, int] | None = None) -> Path:
     """
     THe file should be made up of rows * columns of boolean values, where
     - True: stands for Wall
@@ -27,10 +27,11 @@ def from_bool(file_name: str, cols: int, e: tuple[int, int] | None = None) -> Ma
     :param cols: total number of columns
     :param e: the (x, y) coordinate of the exit
     :param file_name: file name
-    :return: the maze
     """
-    file_path = Path(__file__).resolve().parents[3] / "assets" / "maze" / file_name
-    with open(file_path, "r") as f:
+    bool_path = Path(__file__).resolve().parents[3] / "assets" / "bool" / file_name
+    grid_path = Path(__file__).resolve().parents[3] / "assets" / "grid" / file_name
+
+    with open(bool_path, "r") as f:
         bool_lines = [eval(line.strip()) for line in f.readlines()]
 
     rows = len(bool_lines) // cols
@@ -43,9 +44,20 @@ def from_bool(file_name: str, cols: int, e: tuple[int, int] | None = None) -> Ma
             else:
                 maze_lines[cur_row, cur_col] = 0
 
-    maze = Maze(maze_lines)
-
     if e is not None:
-        maze.set_exit(*e)
+        e_x, e_y = e
+        maze_lines[e_y, e_x] = 2
 
-    return maze
+    res = []
+
+    for line in maze_lines:
+        str_line = ""
+        for num in line:
+            str_line += f"{num} "
+        str_line += '\n'
+        res.append(str_line)
+
+    with open(grid_path, 'w') as f:
+        f.writelines(res)
+
+    return grid_path

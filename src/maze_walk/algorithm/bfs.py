@@ -56,6 +56,13 @@ def build(end: tuple[int, int], parent: dict[tuple[int, int], tuple[int, int]], 
 
 
 def bfs(maze: Maze, x: int, y: int):
+    """
+    Receive a maze and the coordinate of a valid starting point, use BFS search to find out the shortest path.
+    :param maze: the maze in grid form
+    :param x: x coordinate of the starting point
+    :param y: y coordinate of the starting point
+    :return: raw path in list, and all `BfsEvents` generated
+    """
     path = []
     events = []
     parent = {}

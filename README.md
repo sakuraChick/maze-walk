@@ -4,7 +4,7 @@
 
 This is a mini project for MS1008, NTU, AY2026-2027 Sem 1.
 
-The programme will receive a grid map, return all the possible routes from starting point to the ending point, and sort these routes in ascending order by their length.
+The program will receive a grid map, return one the possible route from starting point to the ending point, and visualize the process of finding the trajectory.
 
 ## Features
 
@@ -13,7 +13,7 @@ The programme will receive a grid map, return all the possible routes from start
 - Find one route from the starting point to the ending point with **depth first search** and **broad first search**.
 - Plot the process of finding the routes with `matplotlib`.
 - Save the process as a `gif` file.
-- Provide commands to carry out searching, visualization, and converting.
+- Provide commands to carry out searching, visualization, and conversion.
 
 ## Installation and run
 
@@ -61,24 +61,64 @@ For example:
 
 Put your maze under directory `./assets/grid`
 
+The maze can also be converted from a file of boolean values.
+
+```text
+True
+True
+True
+True
+True
+False
+True
+True
+True
+False
+False
+True
+...
+```
+
+Where `True` stands for wall and `False` stands for air.
+
+In this case, you should put you maze under `./assets/bool` and only need to run the `convert` command to initialize the maze **once**.
+
+### Coordinates
+
+The coordinates of the maze is
+
+```text
+ -----------→ x increases
+| 1 2 3 4 5
+| 6 7 8 9 10
+↓
+y increases
+```
+
+starting from 0.
+
+For example, $(2, 1)$ of the maze is `8`.
+
 ### Commands
 
 #### `search`
 
-Arguments:
-
-- `-a`, `--algorithm`: the algorithm used to find the exit, see for more information.
-- `-b`, `--begin`: the beginning point which takes in two argguents, with the first one standing for x coordinate of the beginning point, and the second standing for y coordinate.
+- `-a`, `--algorithm`: the algorithm used to find the exit, select from `bfs` and `dfs`.
+- `-b`, `--begin`: the beginning point which takes in two arguments, with the first one standing for x coordinate of the beginning point, and the second standing for y coordinate.
 - `-f`, `--file`: the maze in grid form.
 
 #### `visualize`
 
-Arguments:
-
 - `-a`, `--algorithm`: the algorithm used to find the exit, select from `bfs`, `dfs` and `static`.
-- `-b`, `--begin`: the beginning point which takes in two argguents, with the first one standing for x coordinate of the beginning point, and the second standing for y coordinate.
+- `-b`, `--begin`: the beginning point which takes in two arguments, with the first one standing for x coordinate of the beginning point, and the second standing for y coordinate.
 - `-f`, `--file`: the maze in grid form.
 - `-s`, `--save`(optional): key in the file name (in `gif` format) if you want to save the process of finding the exit.
+
+#### `convert`
+
+- `-f`, `--file`: the maze in bool form.
+- `-c`, `--col`: the number of elements in one column.
+- `-e`, `--exit`: the coordinate of the exit in x, y.
 
 Use `-h` or `--help` to learn more information.
 
@@ -86,6 +126,10 @@ Use `-h` or `--help` to learn more information.
 
 ```text
 maze-walk
+├── assets
+│   ├── bool // maze in bool form
+│   ├── grid // maze in grid form
+│   └── image // the gif will be saved here!
 ├── README.md
 ├── pyproject.toml // dependencies and configs
 ├── src
@@ -99,6 +143,7 @@ maze-walk
 │   │   ├── cli.py
 │   │   ├── command
 │   │   │   ├── __init__.py
+│   │   │   ├── convert.py
 │   │   │   ├── search.py
 │   │   │   └── visualize.py
 │   │   ├── factory
@@ -126,6 +171,18 @@ maze-walk
 ```
 
 ## Presentation outline
+
+### Basic Workflow
+
+User input: command
+
+command -(parsed)-> arguments
+
+file -(`maze_factory`)-> maze (plus the starting point) -> services
+
+plot/animation service → dfs/bfs animator → animation
+
+solve maze → raw output → final output
 
 ## License
 
