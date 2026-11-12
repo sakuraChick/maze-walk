@@ -35,7 +35,7 @@ cd maze-walk
 uv venv
 ```
 
-4. Install required dependencies using
+4. Install required dependencies
 
 ```bash
 uv pip install -r pyproject.toml
