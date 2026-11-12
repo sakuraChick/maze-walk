@@ -10,3 +10,5 @@ def run_search(args: Namespace) -> None:
         print(solve_maze_service(maze, *args.begin, args.algorithm))
     except FileNotFoundError as e:
         print(f"Error! {e}")
+    except ValueError as e:
+        print(f"Error! {e}")

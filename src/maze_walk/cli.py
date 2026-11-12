@@ -1,5 +1,4 @@
 import argparse
-from importlib.metadata import requires
 
 from maze_walk.command.convert import run_convert
 from maze_walk.command.search import run_search

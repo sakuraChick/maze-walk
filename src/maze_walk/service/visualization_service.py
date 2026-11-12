@@ -17,6 +17,8 @@ class VisualizationService:
         }
 
     def execute(self, maze: Maze, x: int, y: int, type_: str, file_name: str | None = None) -> str:
+        if maze.is_wall(x, y):
+            raise ValueError("The starting point is in the wall!")
         maze.set_begin(x, y)
         try:
             handler = self._handlers[type_]

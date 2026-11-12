@@ -18,3 +18,5 @@ def run_visualize(args: Namespace) -> None:
         plt.show()
     except FileNotFoundError as e:
         print(f"Error! {e}")
+    except ValueError as e:
+        print(f"Error! {e}")

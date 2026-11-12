@@ -1,7 +1,5 @@
 import time
 
-from maze_walk.model.maze import Maze
-
 
 def dfs_speed_test(maze, sx, sy, time_lim: int):
     start = time.time()

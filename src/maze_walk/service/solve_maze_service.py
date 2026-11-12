@@ -29,10 +29,10 @@ def solve_maze_service(maze: Maze,
                        b_y: int,
                        algorithm_type: str
                        ) -> str:
-    maze.set_begin(b_x, b_y)
-
     if maze.is_wall(b_x, b_y):
         raise ValueError("The starting point is in the wall!")
+
+    maze.set_begin(b_x, b_y)
 
     all_paths = solve(maze, algorithm_type, b_x, b_y)
 
