@@ -6,6 +6,8 @@ from maze_walk.model.maze import Maze
 
 def from_file(file_name: str) -> Maze:
     """
+    Loads a grid maze in numbers, with a space between two numbers,
+    returns maze ADT.
     :param file_name: load a file from ./src/assets/grid/file_name
     :return: the maze
     """

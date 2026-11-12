@@ -8,7 +8,7 @@ The program will receive a grid map, return one the possible route from starting
 
 ## Features
 
-- Convert the `True` and `False` maze into numpy array
+- Convert the `True` and `False` maze into NumPy array
 - Read in a `txt` documentation, and convert into an abstract maze.
 - Find one route from the starting point to the ending point with **depth first search** and **broad first search**.
 - Plot the process of finding the routes with `matplotlib`.
@@ -32,7 +32,7 @@ uv pip install -r pyproject.toml
 3. Run the example below
 
 ```bash
-maze visualize -a dfs -b 45 1 -f default_grid.txt
+maze visualize -a dfs -b 49 1 -f default_grid.txt
 ```
 
 ## Usage
@@ -81,7 +81,7 @@ True
 
 Where `True` stands for wall and `False` stands for air.
 
-In this case, you should put you maze under `./assets/bool` and only need to run the `convert` command to initialize the maze **once**.
+In this case, you should put your maze under `./assets/bool` and only need to run the `convert` command to initialize the maze **once**.
 
 ### Coordinates
 
@@ -148,7 +148,7 @@ maze-walk
 │   │   │   └── visualize.py
 │   │   ├── factory
 │   │   │   ├── __init__.py
-│   │   │   └── maze_factory.py // different methods to generate a maze provided
+│   │   │   └── maze_factory.py // provides different methods to generate a maze
 │   │   ├── main.py
 │   │   ├── model
 │   │   │   ├── __init__.py
@@ -157,7 +157,7 @@ maze-walk
 │   │   │   ├── __init__.py
 │   │   │   ├── bfs_animator.py
 │   │   │   ├── dfs_animator.py
-│   │   │   └── maze_plotter.py // plot static maze
+│   │   │   └── maze_plotter.py // plots static maze
 │   │   └── service
 │   │       ├── __init__.py
 │   │       ├── solve_maze_service.py
@@ -174,6 +174,12 @@ maze-walk
 
 MIT
 
+## TODOs
+
+- [ ] Interactive user interface instead of command lines.
+- [ ] Web-based version, along with uploading and downloading feature
+- [ ] Deep learning model that takes in a photo of any type of maze and convert it into maze ADT
+  
 ## Contributing
 
 Any pull requests are welcomed!

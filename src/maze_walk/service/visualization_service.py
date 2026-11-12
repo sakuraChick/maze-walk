@@ -17,6 +17,18 @@ class VisualizationService:
         }
 
     def execute(self, maze: Maze, x: int, y: int, type_: str, file_name: str | None = None) -> str:
+        """
+        Take in a maze in grid, a valid starting point, the algorithm type, and the file name (optional),
+        animate the process of finding the path to the exit based on selected algorithm, or simply the static maze,
+        save the animation as gif if a file name is passed in,
+        and return the path to the exit.
+        :param maze: the maze in grid
+        :param x: x coordinate of the starting point
+        :param y: y coordinate of the starting point
+        :param type_: from bfs, dfs, and static
+        :param file_name: the filename of the output gif
+        :return: the processed output
+        """
         if maze.is_wall(x, y):
             raise ValueError("The starting point is in the wall!")
         maze.set_begin(x, y)

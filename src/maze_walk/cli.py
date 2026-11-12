@@ -22,20 +22,22 @@ def create_parser() -> argparse.ArgumentParser:
         "-f", "--file",
         type=str,
         required=True,
-        help="The maze in grid"
+        help="the maze in grid"
     )
 
     search_parser.add_argument(
         "-a", "--algorithm",
         choices=["dfs", "bfs"],
-        required=True
+        required=True,
+        help = "algorithm type"
     )
 
     search_parser.add_argument(
         "-b", "--begin",
         nargs=2,
         type=int,
-        required=True
+        required=True,
+        help="the beginning point in x, y coordinates"
     )
 
     search_parser.set_defaults(func=run_search)
@@ -47,7 +49,7 @@ def create_parser() -> argparse.ArgumentParser:
         "-a", "--algorithm",
         choices=["dfs", "bfs", "static"],
         required=True,
-        help="Algorithm type."
+        help="algorithm type"
     )
 
     visualize_parser.add_argument(
@@ -55,21 +57,21 @@ def create_parser() -> argparse.ArgumentParser:
         nargs=2,
         type=int,
         required=True,
-        help="The beginning point in x, y coordinates."
+        help="the beginning point in x, y coordinates"
     )
 
     visualize_parser.add_argument(
         "-s", "--save",
         type=str,
         required=False,
-        help="Key in the document name if you want to save the process as gif."
+        help="key in the document name if you want to save the process as gif"
     )
 
     visualize_parser.add_argument(
         "-f", "--file",
         type=str,
         required=True,
-        help="The maze in grid."
+        help="the maze in grid"
     )
 
     visualize_parser.set_defaults(func=run_visualize)
@@ -81,14 +83,14 @@ def create_parser() -> argparse.ArgumentParser:
         "-f", "--file",
         type=str,
         required=True,
-        help="The original file in bool values."
+        help="the original file in bool values"
     )
 
     convert_parser.add_argument(
         "-c", "--col",
         required=True,
         type=int,
-        help="How many columns does this maze have?"
+        help="number of columns that the maze has"
     )
 
     convert_parser.add_argument(
@@ -96,7 +98,7 @@ def create_parser() -> argparse.ArgumentParser:
         required=True,
         nargs=2,
         type=int,
-        help="Key in the coordinate of the exit if it does not exit in the maze (in the order of x and y)."
+        help="key in the coordinate of the exit if it does not exit in the maze (in the order of x and y)"
     )
 
     convert_parser.set_defaults(func=run_convert)

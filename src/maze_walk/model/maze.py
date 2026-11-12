@@ -1,3 +1,5 @@
+from typing import Iterator
+
 import numpy.typing as npt
 from pathlib import Path
 
@@ -33,7 +35,7 @@ class Maze:
     def set_exit(self, x: int, y: int) -> None:
         self._grid[y, x] = 2
 
-    def find_beginning(self):
+    def find_beginning(self) -> None:
         for j in range(self.row):
             for i in range(self.col):
                 if self._grid[j, i] == 3:
@@ -55,5 +57,5 @@ class Maze:
 
         return "".join(rows)
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[npt.NDArray]:
         return self._grid.__iter__()

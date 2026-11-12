@@ -29,6 +29,15 @@ def solve_maze_service(maze: Maze,
                        b_y: int,
                        algorithm_type: str
                        ) -> str:
+    """
+    Take in a maze in grid, and a valid starting point,
+    and return the path to the exit.
+    :param maze: the maze in grid
+    :param b_x: x coordinate of the starting point
+    :param b_y: y coordinate of the starting point
+    :param algorithm_type: from dfs and bfs
+    :return: the processed output
+    """
     if maze.is_wall(b_x, b_y):
         raise ValueError("The starting point is in the wall!")
 
