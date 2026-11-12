@@ -4,7 +4,7 @@
 
 This is a mini project for MS1008, NTU, AY2026-2027 Sem 1.
 
-The program will receive a grid map, return one the possible route from starting point to the ending point, and visualize the process of finding the trajectory.
+The program will receive a grid map, return one possible route from starting point to the ending point, and visualize the process of finding the trajectory.
 
 ## Features
 
