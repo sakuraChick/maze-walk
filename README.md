@@ -23,13 +23,25 @@ The program will receive a grid map, return one the possible route from starting
 git clone https://github.com/sakuraChick/maze-walk.git
 ```
 
-2. Install required dependencies using
+2. Move to the working directory
+
+```bash
+cd maze-walk
+```
+
+3. Create an uv environment
+
+```bash
+uv venv
+```
+
+4. Install required dependencies using
 
 ```bash
 uv pip install -r pyproject.toml
 ```
 
-3. Run the example below
+5. Run the example below
 
 ```bash
 maze visualize -a dfs -b 49 1 -f default_grid.txt
